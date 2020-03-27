@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Final_Project</string>
+    <string name="app_name">NASA Image</string>
+    <string name="title_activity_nasaimage">NASAImage</string>
+    <string name="tab_text_1">Search</string>
+    <string name="tab_text_2">History</string>
 </resources>
