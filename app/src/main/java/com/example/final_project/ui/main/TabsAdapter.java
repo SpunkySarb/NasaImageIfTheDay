@@ -14,33 +14,47 @@ import com.example.final_project.R;
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class TabsAdapter extends FragmentPagerAdapter {
 
+    int mNumOfTabs;
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
-    private final Context mContext;
-
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+private  Context mContext;
+    public TabsAdapter(Context context, FragmentManager fm) {
         super(fm);
+
+    }
+    public TabsAdapter(FragmentManager fm, int NoofTabs, Context context){
+        super(fm);
+        this.mNumOfTabs = NoofTabs;
         mContext = context;
     }
-
     @Override
-    public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+    public int getCount() {
+        return mNumOfTabs;
     }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 
+
+
+
+
     @Override
-    public int getCount() {
-        // Show 2 total pages.
-        return 2;
+    public Fragment getItem(int position){
+        switch (position){
+            case 0:
+                SearchFragment search = new SearchFragment();
+                return search;
+            case 1:
+                SavedImagesFragment savedImages = new SavedImagesFragment();
+                return savedImages;
+
+            default:
+                return null;
+        }
     }
 }
