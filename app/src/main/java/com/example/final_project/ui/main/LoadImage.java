@@ -29,10 +29,11 @@ public class LoadImage  extends AsyncTask<Void, Void, Void> {
     public static String Description;
     public static String title;
 
-    SearchFragment obj = new SearchFragment();
 
 
-
+LoadImage(String DateOfImage){
+    imageDate=DateOfImage;
+}
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -40,7 +41,6 @@ public class LoadImage  extends AsyncTask<Void, Void, Void> {
         try {
 
 
-            imageDate= obj.textDate;
             String urrl = "https://api.nasa.gov/planetary/apod?api_key=DgPLcIlnmN0Cwrzcg3e9NraFaYLIDI68Ysc6Zh3d&date="+imageDate;
             URL UVurl = new URL(urrl);
             HttpURLConnection UVConnection = (HttpURLConnection) UVurl.openConnection();
@@ -98,7 +98,8 @@ setTitle(title);
 String t = getTitle();
 String d = getDescription();
         objj.title.setText(t);
-        objj.description.setText(d);
+        objj.description.setText(d+"\n\n Date: "+getImagedate());
+        objj.url.setText(getImageUrl());
       //  objj.date.setText(getImagedate());
 
         //Loading image using Picasso (Reference) = https://inducesmile.com/android-programming/how-to-display-image-on-imageview-with-image-url-in-android/

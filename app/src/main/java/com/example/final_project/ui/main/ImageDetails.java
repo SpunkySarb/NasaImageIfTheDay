@@ -1,13 +1,16 @@
 package com.example.final_project.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.final_project.NASAImage;
 import com.example.final_project.R;
 
 public class ImageDetails  extends AppCompatActivity {
@@ -18,15 +21,21 @@ public class ImageDetails  extends AppCompatActivity {
  public static TextView description;
  public static TextView date;
  public static TextView title;
-public static ProgressBar progressBar;
- LoadImage obj = new LoadImage();
+    public static TextView url;
+    private static String textDate;
+
+    SearchFragment obj = new SearchFragment();
+
+    public static ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)   	{
         super.onCreate(savedInstanceState);
-
+ textDate = getIntent().getStringExtra("Date");
+        LoadImage objj = new LoadImage( textDate);
         //date= (TextView)  findViewById(R.id.date);
 
-            obj.execute();
+            objj.execute();
 
 
 
@@ -41,7 +50,7 @@ public static ProgressBar progressBar;
         description= (TextView)  findViewById(R.id.information);
 
         title= (TextView)  findViewById(R.id.titlez);
-
+url = (TextView) findViewById(R.id.url);
 
         nasaImage = findViewById(R.id.nasaImage);
 
@@ -52,8 +61,21 @@ public static ProgressBar progressBar;
 
     }
 
+public void save(View v){
+
+    SavedImagesFragment object = new SavedImagesFragment();
+
+  object.data.add(textDate);
+
+            Toast.makeText(getApplicationContext(),"Image Saved",Toast.LENGTH_SHORT).show();
+        }
 
 
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, NASAImage.class));
+    }
 
 
 

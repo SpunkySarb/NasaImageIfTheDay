@@ -9,16 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.final_project.MainActivity;
 import com.example.final_project.R;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 

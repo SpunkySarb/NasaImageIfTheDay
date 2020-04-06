@@ -36,13 +36,18 @@
         android:layout_height="353dp" />
 
 
-
+    <TextView
+        android:id="@+id/url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:text="SAVE IMAGE" />
+        android:text="SAVE IMAGE"
+        android:onClick="save"/>
 
 </LinearLayout>
 
