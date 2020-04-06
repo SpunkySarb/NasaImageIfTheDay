@@ -31,7 +31,6 @@ public class SearchFragment extends Fragment  {
     public static final String dated = "date";
     SharedPreferences prefs;
     public static EditText date;
-  // public String InstanceDate = "", textDate = "";
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
