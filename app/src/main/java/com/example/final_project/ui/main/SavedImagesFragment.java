@@ -1,7 +1,10 @@
 package com.example.final_project.ui.main;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.final_project.NASAImage;
 import com.example.final_project.R;
 
 import java.util.ArrayList;
@@ -22,7 +26,7 @@ public class SavedImagesFragment extends Fragment {
 
 
     public static ArrayList<String> data= new ArrayList<>();
-
+     public static ArrayAdapter<String> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
@@ -32,11 +36,51 @@ public class SavedImagesFragment extends Fragment {
 
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,data);
+      adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,data);
 
 ListView newList = (ListView) view.findViewById(R.id.lisst);
 newList.setAdapter(adapter);
-newList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+newList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+    @Override
+    public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                   final int pos, long id) {
+        // TODO Auto-generated method stub
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Delete Image");
+        builder.setMessage("Are you sure to Delete this Image?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+SavedImagesFragment object = new SavedImagesFragment();
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when user clicked the Yes button
+                // Set the TextView visibility GONE
+
+object.data.remove(pos);
+adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(),
+                        "Image Deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when No button clicked
+                Toast.makeText(getContext(),
+                        "Image Not Deleted", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+
+
+        return true;
+    }
+});
+        newList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
     SavedImagesFragment obj= new SavedImagesFragment();
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

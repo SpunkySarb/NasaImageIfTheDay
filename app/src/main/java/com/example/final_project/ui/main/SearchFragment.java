@@ -1,7 +1,9 @@
 package com.example.final_project.ui.main;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.final_project.R;
@@ -24,13 +27,22 @@ public class SearchFragment extends Fragment  {
    public static String monthStr;
    public static String dayStr;
    public static String  textDate;
-    EditText date;
+    public static final String mypreference = "mypref";
+    public static final String dated = "date";
+    SharedPreferences prefs;
+    public static EditText date;
   // public String InstanceDate = "", textDate = "";
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.search_layout, container, false);
+        date = (EditText) root.findViewById(R.id.date) ;
+        prefs = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        if (prefs.contains(dated)) {
+            date.setText(prefs.getString(dated, ""));
+        }
+
           date = (EditText) root.findViewById(R.id.date);
         date.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,9 +100,18 @@ date.setText(textDate);
 
     }
 
+    @Override
+    public void onPause() {
+    String d = date.getText().toString();
+    SharedPreferences preferences = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
+    SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(dated, d);
+        editor.commit();
 
+        super.onPause();
 
+    }
 
         }
 
