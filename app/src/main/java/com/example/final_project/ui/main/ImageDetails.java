@@ -105,7 +105,7 @@ public class ImageDetails extends AppCompatActivity {
         db.insert(PhotoDatabase.TableName, null, newRowsValues);
         if (checkDuplicate(object.data) == false) {
             Snackbar snackbar = Snackbar
-                    .make(v, "Image Already Saved", Snackbar.LENGTH_LONG);
+                    .make(v, R.string.imgcheck, Snackbar.LENGTH_LONG);
             snackbar.show();
             object.data.remove(textDate);
             db.delete(PhotoDatabase.TableName, PhotoDatabase.COLUMN_DATE + "= ?", new String[]{textDate});
@@ -119,7 +119,7 @@ public class ImageDetails extends AppCompatActivity {
         } else if (checkDuplicate(object.data) == true) {
 
 
-            Toast.makeText(getApplicationContext(), "Image Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.saved, Toast.LENGTH_SHORT).show();
         }
 
     }

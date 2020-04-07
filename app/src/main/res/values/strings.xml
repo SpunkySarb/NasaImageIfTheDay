@@ -3,4 +3,26 @@
     <string name="title_activity_nasaimage">NASAImage</string>
     <string name="tab_text_1">Search</string>
     <string name="tab_text_2">Saved Images</string>
+    <string name="search">SEARCH</string>
+    <string name="save">SAVE</string>
+    <string name="alertTitle"><b>Instructions</b></string>
+    <string name="message"><b>Search:</b> \n1) Choose a date in Present or Past\n2)Click on Search\n3)Save Image by Clicking SAVE IMAGE Button.
+        \n\n<b>Saved Images:</b> \n1) Swipe to left to access saved Image List \n2) Click to View Image
+                        \n3) Long Press item to Delete.</string>
+    <string name="imgcheck">Image Already Saved</string>
+    <string name="saved">Image Saved</string>
+
+
+    <string name="delete">Delete Image</string>
+    <string name="deleteMessage">Are you sure to Delete this Image?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="imgdel">Image Deleted</string>
+    <string name="imgndel">Image not Deleted</string>
+
+
+
+
+
+
 </resources>

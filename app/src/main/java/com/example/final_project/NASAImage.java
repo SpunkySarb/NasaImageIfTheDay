@@ -36,10 +36,8 @@ public class NASAImage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Instructions");
-                builder.setMessage("Search:\n1) Choose a date in Present/Past\n2)Click on Search\n3)Save Image by Clicking 'SAVE IMAGE' Button.\n\n" +
-                        "Saved Images:\n1) Swipe to left to access saved Image List\n2) Click to View Image\n" +
-                        "3) Long Press item to Delete");
+                builder.setTitle(R.string.alertTitle);
+                builder.setMessage(R.string.message);
 
                 AlertDialog dialog = builder.create();
                 // Display the alert dialog on interface

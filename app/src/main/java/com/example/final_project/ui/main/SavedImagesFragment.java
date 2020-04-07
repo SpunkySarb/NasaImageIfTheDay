@@ -74,9 +74,9 @@ public class SavedImagesFragment extends Fragment {
                                            final int pos, long id) {
                 // TODO Auto-generated method stub
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Delete Image");
-                builder.setMessage("Are you sure to Delete this Image?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.delete);
+                builder.setMessage(R.string.deleteMessage);
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     SavedImagesFragment object = new SavedImagesFragment();
 
                     /**
@@ -94,15 +94,15 @@ public class SavedImagesFragment extends Fragment {
 
                         adapter.notifyDataSetChanged();
                         Toast.makeText(getContext(),
-                                "Image Deleted", Toast.LENGTH_SHORT).show();
+                                R.string.imgdel, Toast.LENGTH_SHORT).show();
                     }
                 });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Do something when No button clicked
                         Toast.makeText(getContext(),
-                                "Image Not Deleted", Toast.LENGTH_SHORT).show();
+                                R.string.imgndel, Toast.LENGTH_SHORT).show();
                     }
 
                 });

@@ -50,7 +50,7 @@
         android:id="@+id/save"
         android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:text="SAVE IMAGE"
+        android:text="@string/save"
         android:onClick="save"/>
 
 </LinearLayout>

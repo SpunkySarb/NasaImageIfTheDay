@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ਨਾਸਾ ਚਿੱਤਰ</string>
+    <string name="title_activity_nasaimage">ਨਾਸਾ ਚਿੱਤਰ</string>
+    <string name="tab_text_1">ਖੋਜ ਕਰੋ</string>
+    <string name="tab_text_2">ਸੰਭਾਲੀਆਂ ਤਸਵੀਰਾਂ</string>
+    <string name="search">ਖੋਜ ਕਰੋ</string>
+    <string name="save">ਬਚਾਓ</string>
+    <string name="alertTitle"><b>ਹਦਾਇਤ</b></string>
+    <string name="message"><b> ਖੋਜ: </b> \n1) ਮੌਜੂਦਾ ਜਾਂ ਪੁਰਾਣੀ ਤਰੀਕ ਦੀ ਚੋਣ ਕਰੋ \n2) ਖੋਜ ਤੇ ਕਲਿਕ ਕਰੋ  \n3) ਸੇਵ ਚਿੱਤਰ ਬਟਨ ਨੂੰ ਕਲਿੱਕ ਕਰਕੇ ਚਿੱਤਰ ਸੰਭਾਲੋ.
+        \n \n <b> ਸੰਭਾਲੀਆਂ ਤਸਵੀਰਾਂ: </b> \n1) ਬਚਾਏ ਗਏ ਚਿੱਤਰਾਂ ਦੀ ਸੂਚੀ ਨੂੰ ਵੇਖਣ ਲਈ ਖੱਬੇ ਤੋਂ ਸਵਾਈਪ ਕਰੋ \n2) ਚਿੱਤਰ ਵੇਖਣ ਲਈ ਕਲਿਕ ਕਰੋ
+                        \n3) ਮਿਟਾਉਣ ਲਈ ਲੰਬੀ ਪ੍ਰੈਸ ਆਈਟਮ.</string>
+    <string name="imgcheck">ਚਿੱਤਰ ਪਹਿਲਾਂ ਹੀ ਸੁਰੱਖਿਅਤ ਹੈ</string>
+    <string name="saved">ਚਿੱਤਰ ਸੰਭਾਲਿਆ ਗਿਆ</string>
+    <string name="delete">ਚਿੱਤਰ ਮਿਟਾਓ</string>
+    <string name="deleteMessage">ਕੀ ਤੁਸੀਂ ਯਕੀਨਨ ਇਸ ਚਿੱਤਰ ਨੂੰ ਮਿਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="yes">ਹਾਂ</string>
+    <string name="no">ਨਹੀਂ</string>
+    <string name="imgdel">ਚਿੱਤਰ ਮਿਟਾਇਆ ਗਿਆ</string>
+    <string name="imgndel">ਚਿੱਤਰ ਮਿਟਾਇਆ ਨਹੀਂ ਗਿਆ</string>
+
+
+
+
+
+</resources>
