@@ -20,28 +20,36 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LoadImage  extends AsyncTask<Void, Void, Void> {
+public class LoadImage extends AsyncTask<Void, Void, Void> {
     public static String imageDate;
-    public static String API;
-    public static String ImageURL;
- public static String imageUrl;
- public static String imagedate;
+    public static String imageUrl;
+    public static String imagedate;
     public static String Description;
     public static String title;
 
 
+    /**
+     * constructor
+     *
+     * @param DateOfImage = date to be passed from date picker and from saved image dates
+     */
+    LoadImage(String DateOfImage) {
+        imageDate = DateOfImage;
+    }
 
-LoadImage(String DateOfImage){
-    imageDate=DateOfImage;
-}
-
+    /**
+     * AsyncTask method to scrap date, url, explanation etc. from JASON
+     *
+     * @param voids
+     * @return
+     */
     @Override
     protected Void doInBackground(Void... voids) {
 
         try {
 
 
-            String urrl = "https://api.nasa.gov/planetary/apod?api_key=DgPLcIlnmN0Cwrzcg3e9NraFaYLIDI68Ysc6Zh3d&date="+imageDate;
+            String urrl = "https://api.nasa.gov/planetary/apod?api_key=DgPLcIlnmN0Cwrzcg3e9NraFaYLIDI68Ysc6Zh3d&date=" + imageDate;
             URL UVurl = new URL(urrl);
             HttpURLConnection UVConnection = (HttpURLConnection) UVurl.openConnection();
             InputStream input = UVConnection.getInputStream();
@@ -51,8 +59,7 @@ LoadImage(String DateOfImage){
             StringBuilder sb = new StringBuilder();
 
             String line = null;
-            while ((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
             }
             String result = sb.toString();
@@ -70,10 +77,10 @@ LoadImage(String DateOfImage){
             JSONObject jObject4 = new JSONObject(result);
             title = jObject4.getString("title");
 
-setImageUrl(imageUrl);
-setImagedate(imageDate);
-setDescription(Description);
-setTitle(title);
+            setImageUrl(imageUrl);
+            setImagedate(imageDate);
+            setDescription(Description);
+            setTitle(title);
 
 
         } catch (MalformedURLException e) {
@@ -88,52 +95,93 @@ setTitle(title);
         return null;
     }
 
+    /**
+     * To set the scrapped data to the widgets of {@link ImageDetails } class in order to show
+     * the required image
+     *
+     * @param aVoid
+     */
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        String photo= getImageUrl();
-        ImageDetails objj= new ImageDetails();
+        String photo = getImageUrl();
+        ImageDetails objj = new ImageDetails();
 
 
-String t = getTitle();
-String d = getDescription();
+        String t = getTitle();
+        String d = getDescription();
         objj.title.setText(t);
-        objj.description.setText(d+"\n\n Date: "+getImagedate());
-        objj.url.setText("Image Url: "+getImageUrl());
-      //  objj.date.setText(getImagedate());
+        objj.description.setText(d + "\n\n Date: " + getImagedate());
+        objj.url.setText("Image Url: " + getImageUrl());
 
         //Loading image using Picasso (Reference) = https://inducesmile.com/android-programming/how-to-display-image-on-imageview-with-image-url-in-android/
         Picasso.get().load(photo).into(objj.nasaImage);
 
-        //  ImageDetails s = new ImageDetails();
 
-       // ImageURL= imageUrl;
     }
+
+    /**
+     * getter for image url
+     *
+     * @return url
+     */
     public static String getImageUrl() {
         return imageUrl;
     }
 
+    /**
+     * setter for image url
+     *
+     * @param imageUrl passes image url
+     */
     public static void setImageUrl(String imageUrl) {
         LoadImage.imageUrl = imageUrl;
     }
+
+    /**
+     * getter for Date of the image
+     * @return Date
+     */
     public static String getImagedate() {
         return imagedate;
     }
 
+    /**
+     * stetter for image date
+     * @param imagedate
+     */
     public static void setImagedate(String imagedate) {
         LoadImage.imagedate = imagedate;
     }
+
+    /**
+     * getter for explanation
+     * @return
+     */
     public static String getDescription() {
         return Description;
     }
 
+    /**
+     * setter for Description
+     * @param description
+     */
     public static void setDescription(String description) {
         Description = description;
     }
+
+    /**
+     * getter for title
+     * @return title
+     */
     public static String getTitle() {
         return title;
     }
 
+    /**
+     * setter for title
+     * @param title
+     */
     public static void setTitle(String title) {
         LoadImage.title = title;
     }

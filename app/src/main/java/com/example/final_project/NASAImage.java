@@ -10,7 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.final_project.ui.main.TabsAdapter;
 
 public class NASAImage extends AppCompatActivity {
-
+    /**
+     * Main activity with tabbed layout
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,11 +12,18 @@ public class PhotoDatabase extends SQLiteOpenHelper {
 
     public static final String COLUMN_DATE = "Date";
 
+    /**
+     * @param ctx
+     */
     public PhotoDatabase(Context ctx) {
         super(ctx, NasaImage, null, VersionInfo);
     }
 
-
+    /**
+     * To create database in storage
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -26,6 +33,13 @@ public class PhotoDatabase extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * to upgrade the version of SQLITE
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TableName);
@@ -33,6 +47,13 @@ public class PhotoDatabase extends SQLiteOpenHelper {
 
 
     }
+
+    /**
+     * to downgrade the version of database
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Log.i("Database upgrade","Old verion: "+oldVersion + "New Version : "+ newVersion);
         db.execSQL("DROP TABLE IF EXISTS " + TableName);

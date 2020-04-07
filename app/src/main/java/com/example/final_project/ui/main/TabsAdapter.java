@@ -19,20 +19,24 @@ public class TabsAdapter extends FragmentPagerAdapter {
     int mNumOfTabs;
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
-private  Context mContext;
+    private Context mContext;
+
     public TabsAdapter(Context context, FragmentManager fm) {
         super(fm);
 
     }
-    public TabsAdapter(FragmentManager fm, int NoofTabs, Context context){
+
+    public TabsAdapter(FragmentManager fm, int NoofTabs, Context context) {
         super(fm);
         this.mNumOfTabs = NoofTabs;
         mContext = context;
     }
+
     @Override
     public int getCount() {
         return mNumOfTabs;
     }
+
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -40,12 +44,16 @@ private  Context mContext;
     }
 
 
-
-
-
+    /**
+     * To show tabs in the {@link com.example.final_project.NASAImage} activity
+     * which returns fragments
+     *
+     * @param position
+     * @return
+     */
     @Override
-    public Fragment getItem(int position){
-        switch (position){
+    public Fragment getItem(int position) {
+        switch (position) {
             case 0:
                 SearchFragment search = new SearchFragment();
                 return search;

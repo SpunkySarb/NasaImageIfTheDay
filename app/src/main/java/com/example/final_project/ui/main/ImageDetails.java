@@ -21,14 +21,12 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class ImageDetails  extends AppCompatActivity {
- //  public static String imageDate;
-//public static String API;
-  // public static String ImageURL;
- public static ImageView nasaImage;
- public static TextView description;
- public static TextView date;
- public static TextView title;
+public class ImageDetails extends AppCompatActivity {
+
+    public static ImageView nasaImage;
+    public static TextView description;
+    public static TextView date;
+    public static TextView title;
     public static TextView url;
     private static String textDate;
     private int progressStatus = 0;
@@ -40,86 +38,91 @@ public class ImageDetails  extends AppCompatActivity {
 
     public static ProgressBar progressBar;
 
+    /**
+     * displays image
+     *
+     * @param savedInstanceState
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState)   	{
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- textDate = getIntent().getStringExtra("Date");
-        LoadImage objj = new LoadImage( textDate);
-        //date= (TextView)  findViewById(R.id.date);
+        textDate = getIntent().getStringExtra("Date");
+        LoadImage objj = new LoadImage(textDate);
 
-            objj.execute();
-
-
+        objj.execute();
 
 
         setContentView(R.layout.image_show);
 
-        //  imageDate= getIntent().getStringExtra("Date");
-        //API="https://api.nasa.gov/planetary/apod?api_key=f9ByT6nJjwNNU2gAVBWWX6if2EJQ3VOmQNhAmtYH&date="+imageDate;
 
-      //  TextView info = (TextView) findViewById(R.id.information);
-     //   String photo= obj.getImageUrl();
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-new Thread(new Runnable() {
-    @Override
-    public void run() {
-        while(progressStatus<100){
-            progressStatus++;
-            android.os.SystemClock.sleep(10);
-            myHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setProgress(progressStatus);
-                    
+
+        new Thread(new Runnable() {
+            /**
+             * shows progress in progress bar
+             */
+            @Override
+            public void run() {
+                while (progressStatus < 100) {
+                    progressStatus++;
+                    android.os.SystemClock.sleep(10);
+                    myHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setProgress(progressStatus);
+
+                        }
+                    });
+
                 }
-            });
 
-        }
+            }
+        }).start();
 
-    }
-}).start();
+        description = (TextView) findViewById(R.id.information);
 
-        description= (TextView)  findViewById(R.id.information);
-
-        title= (TextView)  findViewById(R.id.titlez);
-url = (TextView) findViewById(R.id.url);
+        title = (TextView) findViewById(R.id.titlez);
+        url = (TextView) findViewById(R.id.url);
 
         nasaImage = findViewById(R.id.nasaImage);
 
-        //Loading image using Picasso (Reference) = https://inducesmile.com/android-programming/how-to-display-image-on-imageview-with-image-url-in-android/
-      //  Picasso.get().load(photo).into(nasaImage);
-
-
 
     }
 
-public void save(View v){
-    PhotoDatabase DBObject = new PhotoDatabase(this);
-    final   SQLiteDatabase db = DBObject.getWritableDatabase();
-    object.data.add(textDate);
-    ContentValues newRowsValues = new ContentValues();
-    newRowsValues.put(PhotoDatabase.COLUMN_DATE, textDate);
-   db.insert(PhotoDatabase.TableName, null, newRowsValues);
-    if(checkDuplicate(object.data)==false){
-    Snackbar snackbar = Snackbar
-            .make(v, "Image Already Saved", Snackbar.LENGTH_LONG);
-    snackbar.show();
-object.data.remove(textDate);
-        db.delete(PhotoDatabase.TableName,PhotoDatabase.COLUMN_DATE+"= ?",new String[]{textDate});
-        ContentValues addAgain = new ContentValues();
-        addAgain.put(PhotoDatabase.COLUMN_DATE, textDate);
-        db.insert(PhotoDatabase.TableName, null, addAgain);
-        object.newList.setAdapter(object.adapter);
+    /**
+     * it is a click listner to save photo to odatabase and arraylist
+     * in order to show it in listView
+     * Duplicate images cannot be saved here
+     *
+     * @param v
+     */
+    public void save(View v) {
+        PhotoDatabase DBObject = new PhotoDatabase(this);
+        final SQLiteDatabase db = DBObject.getWritableDatabase();
+        object.data.add(textDate);
+        ContentValues newRowsValues = new ContentValues();
+        newRowsValues.put(PhotoDatabase.COLUMN_DATE, textDate);
+        db.insert(PhotoDatabase.TableName, null, newRowsValues);
+        if (checkDuplicate(object.data) == false) {
+            Snackbar snackbar = Snackbar
+                    .make(v, "Image Already Saved", Snackbar.LENGTH_LONG);
+            snackbar.show();
+            object.data.remove(textDate);
+            db.delete(PhotoDatabase.TableName, PhotoDatabase.COLUMN_DATE + "= ?", new String[]{textDate});
+            ContentValues addAgain = new ContentValues();
+            addAgain.put(PhotoDatabase.COLUMN_DATE, textDate);
+            db.insert(PhotoDatabase.TableName, null, addAgain);
+            object.newList.setAdapter(object.adapter);
 
-        object.adapter.notifyDataSetChanged();
+            object.adapter.notifyDataSetChanged();
 
-}else if (checkDuplicate(object.data)==true){
+        } else if (checkDuplicate(object.data) == true) {
 
 
-            Toast.makeText(getApplicationContext(),"Image Saved",Toast.LENGTH_SHORT).show();}
-
+            Toast.makeText(getApplicationContext(), "Image Saved", Toast.LENGTH_SHORT).show();
         }
 
+    }
 
 
     @Override
@@ -131,7 +134,11 @@ object.data.remove(textDate);
 
 
     }
-//To check if the Image is saved or not already.......
+
+    /**
+     * @param list = object.newList
+     * @return If there is any duplicate entry in arraylist then it returns FALSE
+     */
     public static boolean checkDuplicate(ArrayList list) {
         HashSet set = new HashSet();
         for (int i = 0; i < list.size(); i++) {
@@ -142,8 +149,6 @@ object.data.remove(textDate);
         }
         return true;
     }
-
-
 
 
 }
