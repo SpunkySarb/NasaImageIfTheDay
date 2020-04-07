@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +31,8 @@ public class ImageDetails  extends AppCompatActivity {
  public static TextView title;
     public static TextView url;
     private static String textDate;
+    private int progressStatus = 0;
+    private Handler myHandler = new Handler();
     SavedImagesFragment object = new SavedImagesFragment();
 
 
@@ -56,6 +59,26 @@ public class ImageDetails  extends AppCompatActivity {
 
       //  TextView info = (TextView) findViewById(R.id.information);
      //   String photo= obj.getImageUrl();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        while(progressStatus<100){
+            progressStatus++;
+            android.os.SystemClock.sleep(10);
+            myHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setProgress(progressStatus);
+                    
+                }
+            });
+
+        }
+
+    }
+}).start();
+
         description= (TextView)  findViewById(R.id.information);
 
         title= (TextView)  findViewById(R.id.titlez);
@@ -79,7 +102,7 @@ public void save(View v){
    db.insert(PhotoDatabase.TableName, null, newRowsValues);
     if(checkDuplicate(object.data)==false){
     Snackbar snackbar = Snackbar
-            .make(v, "Already Saved", Snackbar.LENGTH_LONG);
+            .make(v, "Image Already Saved", Snackbar.LENGTH_LONG);
     snackbar.show();
 object.data.remove(textDate);
         db.delete(PhotoDatabase.TableName,PhotoDatabase.COLUMN_DATE+"= ?",new String[]{textDate});
@@ -100,8 +123,8 @@ object.data.remove(textDate);
 
 
     @Override
+    //ON back pressed refresh listView to see added item
     public void onBackPressed() {
-        //startActivity(new Intent(this, NASAImage.class));
 
         finish();
         object.adapter.notifyDataSetChanged();
