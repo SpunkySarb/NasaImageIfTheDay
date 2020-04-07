@@ -40,6 +40,7 @@ public class SearchFragment extends Fragment  {
         prefs = this.getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         if (prefs.contains(dated)) {
             date.setText(prefs.getString(dated, ""));
+            textDate = date.getText().toString();
         }
 
           date = (EditText) root.findViewById(R.id.date);
@@ -111,6 +112,12 @@ date.setText(textDate);
         super.onPause();
 
     }
+  //  @Override
+    //public void onResume() {
+//SavedImagesFragment obj = new SavedImagesFragment();
+//obj.adapter.notifyDataSetChanged();
+  //      super.onResume();
+  //  }
 
         }
 

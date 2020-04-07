@@ -1,6 +1,8 @@
 package com.example.final_project.ui.main;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,6 +31,7 @@ public class ImageDetails  extends AppCompatActivity {
     public static TextView url;
     private static String textDate;
     SavedImagesFragment object = new SavedImagesFragment();
+
 
     SearchFragment obj = new SearchFragment();
 
@@ -68,14 +71,24 @@ url = (TextView) findViewById(R.id.url);
     }
 
 public void save(View v){
-
+    PhotoDatabase DBObject = new PhotoDatabase(this);
+    final   SQLiteDatabase db = DBObject.getWritableDatabase();
     object.data.add(textDate);
-
+    ContentValues newRowsValues = new ContentValues();
+    newRowsValues.put(PhotoDatabase.COLUMN_DATE, textDate);
+   db.insert(PhotoDatabase.TableName, null, newRowsValues);
     if(checkDuplicate(object.data)==false){
     Snackbar snackbar = Snackbar
             .make(v, "Already Saved", Snackbar.LENGTH_LONG);
     snackbar.show();
 object.data.remove(textDate);
+        db.delete(PhotoDatabase.TableName,PhotoDatabase.COLUMN_DATE+"= ?",new String[]{textDate});
+        ContentValues addAgain = new ContentValues();
+        addAgain.put(PhotoDatabase.COLUMN_DATE, textDate);
+        db.insert(PhotoDatabase.TableName, null, addAgain);
+        object.newList.setAdapter(object.adapter);
+
+        object.adapter.notifyDataSetChanged();
 
 }else if (checkDuplicate(object.data)==true){
 
@@ -88,7 +101,12 @@ object.data.remove(textDate);
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, NASAImage.class));
+        //startActivity(new Intent(this, NASAImage.class));
+
+        finish();
+        object.adapter.notifyDataSetChanged();
+
+
     }
 //To check if the Image is saved or not already.......
     public static boolean checkDuplicate(ArrayList list) {

@@ -3,6 +3,8 @@ package com.example.final_project.ui.main;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,18 +29,37 @@ public class SavedImagesFragment extends Fragment {
 
     public static ArrayList<String> data= new ArrayList<>();
      public static ArrayAdapter<String> adapter;
+    public static ListView newList;
 
+   // ImageDetails database = new ImageDetails();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.saved_images_layout, viewGroup, false);
         // ArrayList<String> data= new ArrayList<>();
-
+        PhotoDatabase DBObject = new PhotoDatabase(getContext());
+        final   SQLiteDatabase db = DBObject.getWritableDatabase();
 
 
       adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,data);
+        String[] columns = {PhotoDatabase.COLUMN_DATE};
+        String tableName = PhotoDatabase.TableName;
+        Cursor results = db.query(false,PhotoDatabase.TableName,columns,null,null,null,null,null,null);
 
-ListView newList = (ListView) view.findViewById(R.id.lisst);
+        int dateIndex = results.getColumnIndex(PhotoDatabase.COLUMN_DATE);
+
+
+        while (results.moveToNext()) {
+
+            String dates = results.getString(dateIndex);
+
+            data.add(dates);
+        }
+
+        //in this case, "this" is the ChatWindow, which is - A Context object
+
+
+ newList = (ListView) view.findViewById(R.id.lisst);
 newList.setAdapter(adapter);
 
 newList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -57,7 +78,13 @@ SavedImagesFragment object = new SavedImagesFragment();
                 // Do something when user clicked the Yes button
                 // Set the TextView visibility GONE
 
-object.data.remove(pos);
+
+
+                db.delete(PhotoDatabase.TableName,PhotoDatabase.COLUMN_DATE+"= ?",new String[]{data.get(pos)});
+                object.data.remove(pos);
+                 object.newList.setAdapter(object.adapter);
+
+              //  object.adapter.notifyDataSetChanged();
 adapter.notifyDataSetChanged();
                 Toast.makeText(getContext(),
                         "Image Deleted", Toast.LENGTH_SHORT).show();
