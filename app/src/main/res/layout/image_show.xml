@@ -33,14 +33,18 @@
     <TextView
         android:id="@+id/information"
         android:layout_width="match_parent"
-        android:layout_height="353dp" />
+        android:layout_height="517dp"
+        android:fontFamily="cursive"
+        android:textSize="18sp" />
 
 
     <TextView
         android:id="@+id/url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoLink="web" />
+        android:autoLink="web"
+        android:fontFamily="cursive"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/save"

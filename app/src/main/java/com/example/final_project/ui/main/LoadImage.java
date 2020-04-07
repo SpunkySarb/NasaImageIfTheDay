@@ -99,7 +99,7 @@ String t = getTitle();
 String d = getDescription();
         objj.title.setText(t);
         objj.description.setText(d+"\n\n Date: "+getImagedate());
-        objj.url.setText(getImageUrl());
+        objj.url.setText("Image Url: "+getImageUrl());
       //  objj.date.setText(getImagedate());
 
         //Loading image using Picasso (Reference) = https://inducesmile.com/android-programming/how-to-display-image-on-imageview-with-image-url-in-android/
