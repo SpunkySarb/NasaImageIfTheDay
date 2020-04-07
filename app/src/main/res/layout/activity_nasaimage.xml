@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:src="@drawable/help"
-        app:maxImageSize="65dp"
+        app:maxImageSize="62dp"
         android:layout_margin="16dp" />
 
 
